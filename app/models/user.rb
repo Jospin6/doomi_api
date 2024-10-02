@@ -5,7 +5,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
-
+  validates :username, 
+    presence: true,
+    format: { with: /\A[a-zA-Z0-9 _\.]*\z/ }
   def jwt_payload
     super
   end
