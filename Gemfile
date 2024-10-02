@@ -11,7 +11,7 @@ gem 'cancancan', '~> 3.6', '>= 3.6.1'
 gem 'carrierwave'
 gem 'pg', '~> 1.5', '>= 1.5.4'
 gem 'active_model_serializers'
-gem 'jwt'
+gem 'devise-jwt'
 gem 'rack-cors'
 gem 'dotenv-rails'
 
