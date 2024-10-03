@@ -8,7 +8,7 @@ class Users::SessionsController < Devise::SessionsController
     if user&.valid_password?(params[:password])
       if user.confirmed?
         sign_in(user)
-        render json: { message: 'Connexion réussie.' }, status: :ok
+        render json: { message: 'User signed in successfully.' }, status: :ok
       else
         render json: { error: 'Votre compte n\'est pas encore confirmé. Veuillez vérifier votre e-mail.' }, status: :unauthorized
       end
@@ -19,12 +19,12 @@ class Users::SessionsController < Devise::SessionsController
 
   private
 
-  def respond_with(resource, options={})
-    render json: {
-      code: 200, message: "User signed in successfully",
-      data: current_user
-    }, status: :ok
-  end
+  # def respond_with(resource, options={})
+  #   render json: {
+  #     code: 200, message: "User signed in successfully",
+  #     data: current_user
+  #   }, status: :ok
+  # end
   
   def respond_to_on_destroy
     jwt_payload = JWT.decode(request.headers['Authorization'].split(' ')[1], Rails.application.credentials.fetch(:secret_key_base)).first
