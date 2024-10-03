@@ -1,7 +1,21 @@
 # frozen_string_literal: true
 
-class Api::V1::Users::SessionsController < Devise::SessionsController
+class Users::SessionsController < Devise::SessionsController
   respond_to :json
+
+  def create
+    user = User.find_for_database_authentication(email: params[:email])
+    if user&.valid_password?(params[:password])
+      if user.confirmed?
+        sign_in(user)
+        render json: { message: 'Connexion réussie.' }, status: :ok
+      else
+        render json: { error: 'Votre compte n\'est pas encore confirmé. Veuillez vérifier votre e-mail.' }, status: :unauthorized
+      end
+    else
+      render json: { error: 'Identifiants invalides.' }, status: :unauthorized
+    end
+  end
 
   private
 

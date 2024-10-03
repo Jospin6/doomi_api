@@ -5,10 +5,28 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
+  
+  before_create :generate_confirmation_code
+
   validates :username, 
     presence: true,
     format: { with: /\A[a-zA-Z0-9 _\.]*\z/ }
+  
+  validates :type_account, presence: true
+
+  validates :confirmation_code, presence: true, uniqueness: true
+
+  def confirmed?
+    confirmed_at.present?
+  end
+
   def jwt_payload
     super
+  end
+
+  private
+
+  def generate_confirmation_code
+    self.confirmation_code = SecureRandom.hex(3)
   end
 end
