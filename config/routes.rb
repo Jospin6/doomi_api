@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notes_vitrines
   resources :followers
   resources :vitrines
   resources :paiements
