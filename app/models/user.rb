@@ -16,6 +16,9 @@ class User < ApplicationRecord
 
   validates :confirmation_code, presence: true, uniqueness: true
 
+  has_many :outgoing_calls, class_name: "Call", foreign_key: "caller"
+  has_many :incoming_calls, class_name: "Call", foreign_key: "receiver"
+
   def confirmed?
     confirmed_at.present?
   end
