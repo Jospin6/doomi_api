@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notifications
   resources :favorie_produits
   resources :notes_vitrines
   resources :followers
