@@ -1,0 +1,2 @@
+class Vitrine < ApplicationRecord
+end
