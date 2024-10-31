@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :conversations
   resources :produits
   resources :sub_categorie_produits
   resources :categorie_produits
