@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :produits
   resources :sub_categorie_produits
   resources :categorie_produits
   devise_for :users, controllers: {
