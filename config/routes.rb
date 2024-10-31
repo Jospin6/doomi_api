@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :paiements
+  resources :transactions
   resources :calls
   resources :messages
   resources :participants
