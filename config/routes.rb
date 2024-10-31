@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :messages
+  resources :participants
   resources :conversations
   resources :produits
   resources :sub_categorie_produits
