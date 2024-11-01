@@ -1,4 +1,4 @@
-class CategorieProduitsController < ApplicationController
+class Api::V1::CategorieProduitsController < ApplicationController
   before_action :set_categorie_produit, only: %i[ show update destroy ]
 
   # GET /categorie_produits

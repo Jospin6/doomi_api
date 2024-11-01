@@ -1,4 +1,4 @@
-class FavorieProduitsController < ApplicationController
+class Api::V1::FavorieProduitsController < ApplicationController
   before_action :set_favorie_produit, only: %i[ show update destroy ]
 
   # GET /favorie_produits

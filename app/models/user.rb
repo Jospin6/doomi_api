@@ -18,9 +18,11 @@ class User < ApplicationRecord
 
   has_many :outgoing_calls, class_name: "Call", foreign_key: "caller"
   has_many :incoming_calls, class_name: "Call", foreign_key: "receiver"
+  has_one :compte_info, class_name: "CompteInfo", foreign_key: "user_id"
+  
 
   def confirmed?
-    confirmed_at.present?
+    self.compte_info.confirmed_at.present?
   end
 
   def jwt_payload
@@ -30,6 +32,6 @@ class User < ApplicationRecord
   private
 
   def generate_confirmation_code
-    self.confirmation_code = SecureRandom.hex(3)
+    self.compte_info.confirmation_code = SecureRandom.random_number(1000000).to_s.rjust(6, '0')
   end
 end

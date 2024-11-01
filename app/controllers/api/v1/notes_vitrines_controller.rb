@@ -1,4 +1,4 @@
-class NotesVitrinesController < ApplicationController
+class Api::V1::NotesVitrinesController < ApplicationController
   before_action :set_notes_vitrine, only: %i[ show update destroy ]
 
   # GET /notes_vitrines

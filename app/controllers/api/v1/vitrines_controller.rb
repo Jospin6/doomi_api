@@ -1,4 +1,4 @@
-class VitrinesController < ApplicationController
+class Api::V1::VitrinesController < ApplicationController
   before_action :set_vitrine, only: %i[ show update destroy ]
 
   # GET /vitrines

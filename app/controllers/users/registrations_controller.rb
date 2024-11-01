@@ -8,6 +8,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def respond_with(resource, options={})
     if resource.persisted?
       UserMailer.confirmation_email(resource).deliver_now
+      compte_info = CompteInfo.new(user_id: resource.id)
+      compte_info.save
       render json: {
         code: 200,
         message: 'signed up successfully',

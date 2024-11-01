@@ -6,7 +6,7 @@ class Users::SessionsController < Devise::SessionsController
   def create
     user = User.find_for_database_authentication(email: params[:email])
     if user&.valid_password?(params[:password])
-      if user.confirmed?
+      if user.compte_info.confirmed?
         sign_in(user)
         render json: { message: 'User signed in successfully.' }, status: :ok
       else

@@ -1,4 +1,4 @@
-class CallsController < ApplicationController
+class Api::V1::CallsController < ApplicationController
   before_action :set_call, only: %i[ show update destroy ]
 
   # GET /calls
