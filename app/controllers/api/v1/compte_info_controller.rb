@@ -14,7 +14,6 @@ class CompteInfoController < ApplicationController
         @user = User.find_by(email: params[:email])
         if @user
             @user.compte_info.generate_confirmation_code
-            @user.compte_info.save
             UserMailer.confirmation_email(@user).deliver_now
             render json: { message: 'Un nouveau code de confirmation a été envoyé à votre e-mail.' }, status: :ok
         else

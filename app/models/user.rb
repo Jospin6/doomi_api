@@ -6,7 +6,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
   
-  before_create :generate_confirmation_code
 
   validates :username, 
     presence: true,
@@ -16,14 +15,13 @@ class User < ApplicationRecord
 
   validates :confirmation_code, presence: true, uniqueness: true
 
+  after_create :create_compte_info
+
   has_many :outgoing_calls, class_name: "Call", foreign_key: "caller"
   has_many :incoming_calls, class_name: "Call", foreign_key: "receiver"
   has_one :compte_info, class_name: "CompteInfo", foreign_key: "user_id"
   
 
-  def confirmed?
-    self.compte_info.confirmed_at.present?
-  end
 
   def jwt_payload
     super
@@ -31,7 +29,8 @@ class User < ApplicationRecord
 
   private
 
-  def generate_confirmation_code
-    self.compte_info.confirmation_code = SecureRandom.random_number(1000000).to_s.rjust(6, '0')
+  def create_compte_info
+    create_compte_info(user_id: self.id)
   end
+  
 end
