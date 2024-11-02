@@ -1,4 +1,4 @@
-class CompteInfoController < ApplicationController
+class Api::V1::CompteInfoController < ApplicationController
 
     def confirm_code
         @user = User.find_by(email: params[:email])
@@ -13,7 +13,7 @@ class CompteInfoController < ApplicationController
     def resend_confirmation_code
         @user = User.find_by(email: params[:email])
         if @user
-            @user.compte_info.generate_confirmation_code
+            @user.update_confirmation_code
             UserMailer.confirmation_email(@user).deliver_now
             render json: { message: 'Un nouveau code de confirmation a été envoyé à votre e-mail.' }, status: :ok
         else

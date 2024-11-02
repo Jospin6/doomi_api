@@ -13,8 +13,6 @@ class User < ApplicationRecord
   
   validates :type_account, presence: true
 
-  validates :confirmation_code, presence: true, uniqueness: true
-
   after_create :create_compte_info
 
   has_many :outgoing_calls, class_name: "Call", foreign_key: "caller"
@@ -27,10 +25,23 @@ class User < ApplicationRecord
     super
   end
 
+  def update_confirmation_code
+    new_confirmation_code = generate_confirmation_code
+    compte_info = CompteInfo.find_by(user_id: self.id)
+    if compte_info
+      compte_info.update(confirmation_code: new_confirmation_code)
+    end
+  end
+
   private
 
   def create_compte_info
-    create_compte_info(user_id: self.id)
+    confirmation_code = generate_confirmation_code
+    CompteInfo.create(user_id: self.id, confirmation_code: confirmation_code)
+  end
+
+  def generate_confirmation_code
+    SecureRandom.random_number(1000000).to_s.rjust(6, '0')
   end
   
 end
