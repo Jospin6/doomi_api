@@ -1,18 +1,6 @@
-require 'rails_helper'
+require 'swagger_helper'
 
 RSpec.describe "api/v1/conversations", type: :request do
-
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
-
-  let(:valid_headers) {
-    {}
-  }
 
   describe "GET /index" do
     it "renders a successful response" do
