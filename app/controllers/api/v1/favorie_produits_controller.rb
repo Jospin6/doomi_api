@@ -18,7 +18,7 @@ class Api::V1::FavorieProduitsController < ApplicationController
     @favorie_produit = FavorieProduit.new(favorie_produit_params)
 
     if @favorie_produit.save
-      render json: @favorie_produit, status: :created, location: @favorie_produit
+      render json: @favorie_produit, status: :created
     else
       render json: @favorie_produit.errors, status: :unprocessable_entity
     end

@@ -18,7 +18,7 @@ class Api::V1::ConversationsController < ApplicationController
     @conversation = Conversation.new(conversation_params)
 
     if @conversation.save
-      render json: @conversation, status: :created, location: @conversation
+      render json: @conversation, status: :created
     else
       render json: @conversation.errors, status: :unprocessable_entity
     end

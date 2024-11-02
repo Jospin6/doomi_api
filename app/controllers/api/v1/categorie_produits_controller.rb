@@ -18,7 +18,7 @@ class Api::V1::CategorieProduitsController < ApplicationController
     @categorie_produit = CategorieProduit.new(categorie_produit_params)
 
     if @categorie_produit.save
-      render json: @categorie_produit, status: :created, location: @categorie_produit
+      render json: @categorie_produit, status: :created
     else
       render json: @categorie_produit.errors, status: :unprocessable_entity
     end

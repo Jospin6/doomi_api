@@ -18,7 +18,7 @@ class Api::V1::NotesVitrinesController < ApplicationController
     @notes_vitrine = NotesVitrine.new(notes_vitrine_params)
 
     if @notes_vitrine.save
-      render json: @notes_vitrine, status: :created, location: @notes_vitrine
+      render json: @notes_vitrine, status: :created
     else
       render json: @notes_vitrine.errors, status: :unprocessable_entity
     end

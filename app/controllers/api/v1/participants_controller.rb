@@ -18,7 +18,7 @@ class Api::V1::ParticipantsController < ApplicationController
     @participant = Participant.new(participant_params)
 
     if @participant.save
-      render json: @participant, status: :created, location: @participant
+      render json: @participant, status: :created
     else
       render json: @participant.errors, status: :unprocessable_entity
     end

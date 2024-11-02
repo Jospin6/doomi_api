@@ -18,7 +18,7 @@ class Api::V1::CallsController < ApplicationController
     @call = Call.new(call_params)
 
     if @call.save
-      render json: @call, status: :created, location: @call
+      render json: @call, status: :created
     else
       render json: @call.errors, status: :unprocessable_entity
     end

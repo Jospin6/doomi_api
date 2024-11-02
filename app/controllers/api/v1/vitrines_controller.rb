@@ -18,7 +18,7 @@ class Api::V1::VitrinesController < ApplicationController
     @vitrine = Vitrine.new(vitrine_params)
 
     if @vitrine.save
-      render json: @vitrine, status: :created, location: @vitrine
+      render json: @vitrine, status: :created
     else
       render json: @vitrine.errors, status: :unprocessable_entity
     end

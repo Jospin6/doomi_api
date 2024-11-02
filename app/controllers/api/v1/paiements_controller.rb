@@ -18,7 +18,7 @@ class Api::V1::PaiementsController < ApplicationController
     @paiement = Paiement.new(paiement_params)
 
     if @paiement.save
-      render json: @paiement, status: :created, location: @paiement
+      render json: @paiement, status: :created
     else
       render json: @paiement.errors, status: :unprocessable_entity
     end

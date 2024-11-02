@@ -18,7 +18,7 @@ class Api::V1::SubCategorieProduitsController < ApplicationController
     @sub_categorie_produit = SubCategorieProduit.new(sub_categorie_produit_params)
 
     if @sub_categorie_produit.save
-      render json: @sub_categorie_produit, status: :created, location: @sub_categorie_produit
+      render json: @sub_categorie_produit, status: :created
     else
       render json: @sub_categorie_produit.errors, status: :unprocessable_entity
     end
