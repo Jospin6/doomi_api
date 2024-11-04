@@ -17,7 +17,18 @@ class User < ApplicationRecord
 
   has_many :outgoing_calls, class_name: "Call", foreign_key: "caller"
   has_many :incoming_calls, class_name: "Call", foreign_key: "receiver"
-  has_one :compte_info, class_name: "CompteInfo", foreign_key: "user_id"
+  has_many :achats, class_name: "Transaction", foreign_key: "acheteur"
+  has_many :produits
+  has_many :notifications
+  has_many :user1_id, class_name: "Conversation", foreign_key: "user1_id"
+  has_many :user2_id, class_name: "Conversation", foreign_key: "user2_id"
+  has_many :favoie_produits
+
+
+  has_one :compte_info
+  has_one :vitrine
+  has_one :coordonne
+
   
 
 
