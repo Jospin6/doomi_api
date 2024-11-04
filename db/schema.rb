@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_02_061110) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_01_091146) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,6 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_02_061110) do
 
   create_table "categorie_produits", force: :cascade do |t|
     t.string "titre"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -43,6 +44,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_02_061110) do
   end
 
   create_table "conversations", force: :cascade do |t|
+    t.integer "user1_id"
+    t.integer "user2_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -155,15 +158,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_02_061110) do
     t.index ["transaction_id"], name: "index_paiements_on_transaction_id"
   end
 
-  create_table "participants", force: :cascade do |t|
-    t.bigint "conversation_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["conversation_id"], name: "index_participants_on_conversation_id"
-    t.index ["user_id"], name: "index_participants_on_user_id"
-  end
-
   create_table "produits", force: :cascade do |t|
     t.string "titre"
     t.decimal "prix"
@@ -172,9 +166,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_02_061110) do
     t.boolean "is_visible", default: true
     t.bigint "sub_categorie_produit_id", null: false
     t.bigint "user_id", null: false
+    t.text "images", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "images", default: [], array: true
     t.index ["sub_categorie_produit_id"], name: "index_produits_on_sub_categorie_produit_id"
     t.index ["user_id"], name: "index_produits_on_user_id"
   end
@@ -182,6 +176,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_02_061110) do
   create_table "sub_categorie_produits", force: :cascade do |t|
     t.bigint "categorie_produit_id", null: false
     t.string "titre"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["categorie_produit_id"], name: "index_sub_categorie_produits_on_categorie_produit_id"
@@ -199,16 +194,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_02_061110) do
 
   create_table "users", force: :cascade do |t|
     t.string "username", default: "", null: false
-    t.string "email", default: "", null: false
+    t.string "email", default: ""
+    t.string "phone_number", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.string "type_account"
+    t.boolean "is_active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "jti", null: false
-    t.boolean "is_active", default: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -270,8 +271,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_02_061110) do
   add_foreign_key "notifications", "produits"
   add_foreign_key "notifications", "users"
   add_foreign_key "paiements", "transactions"
-  add_foreign_key "participants", "conversations"
-  add_foreign_key "participants", "users"
   add_foreign_key "produits", "sub_categorie_produits"
   add_foreign_key "produits", "users"
   add_foreign_key "sub_categorie_produits", "categorie_produits"
