@@ -21,7 +21,11 @@ Rails.application.routes.draw do
         end
       end
       resources :notes_vitrines
-      resources :followers
+      resources :followers do
+        collection do
+          get :user_followers
+        end
+      end
       resources :vitrines do
         collection do
           get :user_vitrine
@@ -54,7 +58,12 @@ Rails.application.routes.draw do
         end
       end
       resources :sub_categorie_produits
-      resources :categorie_produits
+      resources :categorie_produits do
+        collection do 
+          get :all_categories_produits
+          get :all_category_produits
+        end
+      end
     end
   end
 end
