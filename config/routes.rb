@@ -15,7 +15,11 @@ Rails.application.routes.draw do
       resources :followers
       resources :vitrines
       resources :paiements
-      resources :transactions
+      resources :transactions do
+        collection do
+          get :user_transactions
+        end
+      end
       resources :calls
       resources :messages
       resources :participants
