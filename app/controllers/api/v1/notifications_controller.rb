@@ -13,6 +13,12 @@ class Api::V1::NotificationsController < ApplicationController
     render json: @notification
   end
 
+  def user_notifications
+    @notifications = Notification.where("user_id =", current_user.id)
+    render json: @notifications, status: :ok
+  end
+  
+
   # POST /notifications
   def create
     @notification = Notification.new(notification_params)
