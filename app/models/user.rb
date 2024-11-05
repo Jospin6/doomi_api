@@ -17,7 +17,7 @@ class User < ApplicationRecord
 
   has_many :outgoing_calls, class_name: "Call", foreign_key: "caller"
   has_many :incoming_calls, class_name: "Call", foreign_key: "receiver"
-  has_many :achats, class_name: "Transaction", foreign_key: "acheteur"
+  has_many :achats, class_name: "Transaction", foreign_key: "acheteur", through: :transactions
   has_many :produits
   has_many :notifications
   has_many :user1_id, class_name: "Conversation", foreign_key: "user1_id"

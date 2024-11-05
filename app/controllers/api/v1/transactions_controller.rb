@@ -13,6 +13,12 @@ class Api::V1::TransactionsController < ApplicationController
     render json: @transaction
   end
 
+  def user_transactions
+    @get_user_transactions = Produit.includes(:transactions, :acheteurs).where("user_id = ", current_user.id)
+    render json: @get_user_transactions, status: :ok
+  end
+  
+
   # POST /transactions
   def create
     @transaction = Transaction.new(transaction_params)
