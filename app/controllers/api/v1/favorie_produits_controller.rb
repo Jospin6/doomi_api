@@ -13,6 +13,12 @@ class Api::V1::FavorieProduitsController < ApplicationController
     render json: @favorie_produit
   end
 
+  def user_favories
+    @favorie_produits = FavorieProduit.includes(:produit).find_by("user_id", current_user.id)
+    render json: @favorie_produits, status: :ok
+  end
+  
+
   # POST /favorie_produits
   def create
     @favorie_produit = FavorieProduit.new(favorie_produit_params)

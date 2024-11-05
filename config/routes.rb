@@ -14,8 +14,12 @@ Rails.application.routes.draw do
         collection do
           get :user_notifications
         end
+      end 
+      resources :favorie_produits do
+        collection do
+          get :user_favories
+        end
       end
-      resources :favorie_produits
       resources :notes_vitrines
       resources :followers
       resources :vitrines do

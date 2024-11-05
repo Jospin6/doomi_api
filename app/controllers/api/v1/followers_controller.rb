@@ -13,6 +13,12 @@ class Api::V1::FollowersController < ApplicationController
     render json: @follower
   end
 
+  def user_followers
+    @followers = Follower.find_by("vitrine_id", current_user.vitrine.id).count
+    render json: @followers, status: :ok
+  end
+  
+
   # POST /followers
   def create
     @follower = Follower.new(follower_params)
