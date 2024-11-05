@@ -13,6 +13,18 @@ class Api::V1::ProduitsController < ApplicationController
     render json: @produit
   end
 
+  def user_produits
+
+    @produits = Produit.includes(:vetementChaussure, 
+      :vehicule, 
+      :immobilier, 
+      :evenement, 
+      :emploi, 
+      :autreProduitAttribut).where("user_id =", current_user.id)
+    
+  end
+  
+
   # POST /produits
   def create
     @produit = Produit.new(produit_params)
