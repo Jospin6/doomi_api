@@ -20,7 +20,11 @@ Rails.application.routes.draw do
           get :user_transactions
         end
       end
-      resources :calls
+      resources :calls do
+        collection do
+          get :user_calls
+        end
+      end
       resources :messages
       resources :participants
       resources :conversations

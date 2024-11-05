@@ -13,6 +13,15 @@ class Api::V1::CallsController < ApplicationController
     render json: @call
   end
 
+  def user_calls
+    @calls = Call.includes(:caller, :receiver)
+            .where("caller = ? OR receiver = ?", current_user.id, current_user.id)
+            .select("calls.*, callers.username AS caller_name, receivers.username AS receiver_name")
+            .joins("INNER JOIN users AS callers ON callers.id = calls.caller")
+            .joins("INNER JOIN users AS receivers ON receivers.id = calls.receiver")
+  end
+  
+
   # POST /calls
   def create
     @call = Call.new(call_params)
