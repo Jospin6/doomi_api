@@ -9,7 +9,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'confirm_code', to: 'compte_info#confirm_code'
       post 'resend_confirmation_code', to: 'compte_info#resend_confirmation_code'
-      resources :notifications
+      get 'user_coordonne', to: 'compte_info#user_coordonne'
+      resources :notifications do
+        collection do
+          get :user_notifications
+        end
+      end
       resources :favorie_produits
       resources :notes_vitrines
       resources :followers
@@ -29,10 +34,21 @@ Rails.application.routes.draw do
           get :user_calls
         end
       end
-      resources :messages
-      resources :participants
-      resources :conversations
-      resources :produits
+      resources :messages do
+        collection do
+          get :conversation_messages
+        end
+      end
+      resources :conversations do
+        collection do 
+          get :user_conversations
+        end
+      end
+      resources :produits do
+        collection do 
+          get :user_produits
+        end
+      end
       resources :sub_categorie_produits
       resources :categorie_produits
     end

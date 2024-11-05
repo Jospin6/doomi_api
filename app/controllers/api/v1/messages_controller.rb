@@ -13,6 +13,12 @@ class Api::V1::MessagesController < ApplicationController
     render json: @message
   end
 
+  def conversation_messages
+    @messages = Message.find_by("conversation_id", params[:conversation_id])
+    render json: @messages, status: :ok
+  end
+  
+
   # POST /messages
   def create
     @message = Message.new(message_params)
