@@ -13,6 +13,20 @@ class Api::V1::VitrinesController < ApplicationController
     render json: @vitrine
   end
 
+  def user_vitrine
+    @vitrine = Vitrine.includes(:follewers)
+                   .where(user_id: current_user.id)
+                   .first
+
+    @followers_count = vitrine.follewers.count if @vitrine
+
+    render json: {
+      vitrine: @vitrine,
+      followers_count: @followers_count
+    }
+  end
+  
+
   # POST /vitrines
   def create
     @vitrine = Vitrine.new(vitrine_params)

@@ -13,7 +13,11 @@ Rails.application.routes.draw do
       resources :favorie_produits
       resources :notes_vitrines
       resources :followers
-      resources :vitrines
+      resources :vitrines do
+        collection do
+          get :user_vitrine
+        end
+      end
       resources :paiements
       resources :transactions do
         collection do
