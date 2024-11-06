@@ -1,5 +1,5 @@
 class Api::V1::VitrinesController < ApplicationController
-  before_action :set_vitrine, only: %i[ show update destroy ]
+  before_action :set_vitrine, only: %i[ show update destroy add_recommandation ]
 
   # GET /vitrines
   def index
@@ -36,6 +36,13 @@ class Api::V1::VitrinesController < ApplicationController
     else
       render json: @vitrine.errors, status: :unprocessable_entity
     end
+  end
+
+  def add_recommandation
+    @vitrine.recommandations.create(contenu: params[:term], user_id: current_user.id)
+    render json: {
+      message: "recommandation added successfully"
+    }, status: :ok
   end
 
   # PATCH/PUT /vitrines/1

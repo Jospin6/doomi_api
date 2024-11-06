@@ -8,7 +8,6 @@ class CreateProduits < ActiveRecord::Migration[7.0]
       t.boolean :is_visible, default: true
       t.references :sub_categorie_produit, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
-      t.text :images, array: true, default: []
       
       t.timestamps
     end

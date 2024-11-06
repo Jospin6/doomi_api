@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       resources :vitrines do
         collection do
           get :user_vitrine
+          post :add_recommandation
         end
       end
       resources :paiements
@@ -57,6 +58,7 @@ Rails.application.routes.draw do
       resources :produits do
         collection do 
           get :user_produits
+          post :add_recommandation
         end
       end
       resources :sub_categorie_produits

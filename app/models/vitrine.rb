@@ -2,6 +2,7 @@ class Vitrine < ApplicationRecord
     belongs_to :user
     has_many :follewers
     has_many :notes
+    has_many :recommandations, as: :recommandable
 
     def moyenne_notes
         return 0 if notes.empty?

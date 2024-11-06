@@ -18,7 +18,7 @@ class RechercheProduitsController < ApplicationController
     @recherche_produit = RechercheProduit.new(recherche_produit_params)
 
     if @recherche_produit.save
-      render json: @recherche_produit, status: :created, location: @recherche_produit
+      render json: @recherche_produit, status: :created
     else
       render json: @recherche_produit.errors, status: :unprocessable_entity
     end

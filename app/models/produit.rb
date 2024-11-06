@@ -3,6 +3,8 @@ class Produit < ApplicationRecord
   belongs_to :user
   has_many :transactions
   has_many :acheteurs, through: :transactions
+  has_many :recommandations, as: :recommandable
+  has_many :images, as: :imageable
 
   has_one :vetementChaussure
   has_one :vehicule

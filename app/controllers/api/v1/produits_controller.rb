@@ -1,5 +1,5 @@
 class Api::V1::ProduitsController < ApplicationController
-  before_action :set_produit, only: %i[ show update destroy ]
+  before_action :set_produit, only: %i[ show update destroy add_recommandation ]
 
   # GET /produits
   def index
@@ -35,6 +35,11 @@ class Api::V1::ProduitsController < ApplicationController
     @produit = Produit.new(produit_params)
 
     if @produit.save
+      
+      @produit.images.each do |image|
+        @produit.images.create(image: image)
+      end
+      
       if params[:vehicule] || params[:autreProduitAttribut]
         @produit.build_vehicule(vehicule_params)
         @produit.build_autreProduitAttribut(autreProduitAttribut_params)
@@ -52,6 +57,14 @@ class Api::V1::ProduitsController < ApplicationController
       render json: @produit.errors, status: :unprocessable_entity
     end
   end
+
+  def add_recommandation
+    @produit.recommandations.create(contenu: params[:term], user_id: current_user.id)
+    render json: {
+      message: "recommandation added successfully"
+    }, status: :ok
+  end
+  
 
   # PATCH/PUT /produits/1
   def update
