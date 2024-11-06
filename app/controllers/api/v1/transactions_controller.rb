@@ -14,8 +14,22 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def user_transactions
-    @get_user_transactions = Produit.includes(:transactions, :acheteurs).where("user_id = ", current_user.id)
-    render json: @get_user_transactions, status: :ok
+    @get_user_ventes = Produit.includes(:transactions, :acheteurs).where("user_id = ", current_user.id)
+    @get_user_achats = Transaction.includes(produit: :user).where("acheteur = ", current_user.id)
+    if @get_user_ventes && @get_user_achats
+      render json: {
+        data: {
+          "ventes": @get_user_ventes,
+          "achats": @get_user_achats
+        }
+      }, status: :ok
+    else
+      render json: {
+        message: 'Y a une erreur dans la requete',
+      },status: :unprocessable_entity 
+    end
+    
+    
   end
   
 
@@ -52,6 +66,6 @@ class Api::V1::TransactionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.require(:transaction).permit(:produit_id, :acheteur, :status)
+      params.require(:transaction).permit(:produit_id, :acheteur, :notes, :status)
     end
 end

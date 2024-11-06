@@ -12,7 +12,7 @@ class Api::V1::NotesVitrinesController < ApplicationController
   def show
     render json: @notes_vitrine
   end
-
+  
   # POST /notes_vitrines
   def create
     @notes_vitrine = NotesVitrine.new(notes_vitrine_params)
