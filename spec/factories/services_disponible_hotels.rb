@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :serices_disponible_hotel do
+  factory :services_disponible_hotel do
     hotellerie_service { nil }
     nom_service { "MyString" }
     description { "MyText" }

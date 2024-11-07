@@ -1,6 +1,6 @@
-class CreateSericesDisponibleHotels < ActiveRecord::Migration[7.0]
+class CreateServicesDisponibleHotels < ActiveRecord::Migration[7.0]
   def change
-    create_table :serices_disponible_hotels do |t|
+    create_table :services_disponible_hotels do |t|
       t.references :hotellerie_service, null: false, foreign_key: true
       t.string :nom_service
       t.text :description

@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  resources :evaluations
-  resources :serices_disponible_hotels
-  resources :hotellerie_services
-  resources :menus
-  resources :restaurations
-  resources :reservations
-  resources :recherche_produits
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   devise_for :users, controllers: {
@@ -17,6 +10,13 @@ Rails.application.routes.draw do
       post 'confirm_code', to: 'compte_info#confirm_code'
       post 'resend_confirmation_code', to: 'compte_info#resend_confirmation_code'
       get 'user_coordonne', to: 'compte_info#user_coordonne'
+      resources :services_disponible_hotels
+      resources :evaluations
+      resources :hotellerie_services
+      resources :menus
+      resources :restaurations
+      resources :reservations
+      resources :recherche_produits
       resources :notifications do
         collection do
           get :user_notifications
