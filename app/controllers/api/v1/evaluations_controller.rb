@@ -1,4 +1,4 @@
-class EvaluationsController < ApplicationController
+class Api::V1::EvaluationsController < ApplicationController
   before_action :set_evaluation, only: %i[ show update destroy ]
 
   # GET /evaluations

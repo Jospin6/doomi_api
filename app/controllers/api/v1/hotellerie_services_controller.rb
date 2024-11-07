@@ -1,4 +1,4 @@
-class HotellerieServicesController < ApplicationController
+class Api::V1::HotellerieServicesController < ApplicationController
   before_action :set_hotellerie_service, only: %i[ show update destroy ]
 
   # GET /hotellerie_services

@@ -1,4 +1,4 @@
-class SericesDisponibleHotelsController < ApplicationController
+class Api::V1::SericesDisponibleHotelsController < ApplicationController
   before_action :set_serices_disponible_hotel, only: %i[ show update destroy ]
 
   # GET /serices_disponible_hotels

@@ -1,4 +1,4 @@
-class RestaurationsController < ApplicationController
+class Api::V1::RestaurationsController < ApplicationController
   before_action :set_restauration, only: %i[ show update destroy ]
 
   # GET /restaurations

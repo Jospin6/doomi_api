@@ -1,4 +1,4 @@
-class RechercheProduitsController < ApplicationController
+class Api::V1::RechercheProduitsController < ApplicationController
   before_action :set_recherche_produit, only: %i[ show update destroy ]
 
   # GET /recherche_produits
