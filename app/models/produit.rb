@@ -8,6 +8,7 @@ class Produit < ApplicationRecord
   has_many :reservations, as: :reservationable
   has_many :boosts, as: :boostable
   has_many :a_la_unes, as: :a_la_uneable
+  has_many :notifications, as: :notificationable
   
   has_one :vetementChaussure
   has_one :vehicule

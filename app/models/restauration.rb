@@ -6,4 +6,5 @@ class Restauration < ApplicationRecord
   has_many :reservations, as: :reservationable
   has_many :boosts, as: :boostable
   has_many :a_la_unes, as: :a_la_uneable
+  has_many :notifications, as: :notificationable
 end
