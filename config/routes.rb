@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :serices_disponible_hotels
+  resources :hotellerie_services
+  resources :menus
+  resources :restaurations
   resources :reservations
   resources :recherche_produits
   mount Rswag::Ui::Engine => '/api-docs'

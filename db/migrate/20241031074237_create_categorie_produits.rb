@@ -3,7 +3,7 @@ class CreateCategorieProduits < ActiveRecord::Migration[7.0]
     create_table :categorie_produits do |t|
       t.string :titre
       t.text :description
-      t.text :image
+      t.string :image
       t.timestamps
       
     end
