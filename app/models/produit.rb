@@ -5,6 +5,7 @@ class Produit < ApplicationRecord
   has_many :acheteurs, through: :transactions
   has_many :recommandations, as: :recommandable
   has_many :images, as: :imageable
+  has_many :reservations, as: :reservationable
 
   has_one :vetementChaussure
   has_one :vehicule
@@ -12,5 +13,5 @@ class Produit < ApplicationRecord
   has_one :evenement
   has_one :emploi
   has_one :autreProduitAttribut
-
+  
 end

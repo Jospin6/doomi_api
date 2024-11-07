@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :evaluations
   resources :serices_disponible_hotels
   resources :hotellerie_services
   resources :menus

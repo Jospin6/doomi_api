@@ -1,4 +1,4 @@
 class Reservation < ApplicationRecord
-  belongs_to :produit
+  belongs_to :reservationable, polymorphic: true
   belongs_to :user
 end
