@@ -1,3 +1,3 @@
 class ALaUne < ApplicationRecord
-  belongs_to :produit
+  belongs_to :a_la_uneable, polymorphic: true
 end

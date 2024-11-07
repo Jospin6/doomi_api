@@ -6,7 +6,9 @@ class Produit < ApplicationRecord
   has_many :recommandations, as: :recommandable
   has_many :images, as: :imageable
   has_many :reservations, as: :reservationable
-
+  has_many :boosts, as: :boostable
+  has_many :a_la_unes, as: :a_la_uneable
+  
   has_one :vetementChaussure
   has_one :vehicule
   has_one :immobilier
