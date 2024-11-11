@@ -14,7 +14,8 @@ class Api::V1::CompteInfoController < ApplicationController
         @user = User.find_by(email: params[:email])
         if @user
             @user.update_confirmation_code
-            UserMailer.confirmation_email(@user).deliver_now
+            @user.send_confirmation_sms
+            # UserMailer.confirmation_email(@user).deliver_now
             render json: { message: 'Un nouveau code de confirmation a été envoyé à votre e-mail.' }, status: :ok
         else
             render json: { error: 'Aucun utilisateur trouvé avec cet e-mail.' }, status: :not_found

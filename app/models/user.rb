@@ -44,6 +44,16 @@ class User < ApplicationRecord
     end
   end
 
+  def send_confirmation_sms
+    confirmation_code = generate_confirmation_code
+    message = TwilioClient.messages.create(
+      from: '+13612261784', 
+      to: self.phone_number,
+      body: "Merci de vous être inscrit sur Doomi, #{self.username}! Voici le code ce confirmation de votre compte #{confirmation_code}"
+    )
+    puts "Message sent: #{message.sid}"
+  end
+
   private
 
   def create_compte_info

@@ -7,8 +7,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def respond_with(resource, options={})
     if resource.persisted?
+      resource.send_confirmation_sms
       Coordonne.create(user_id: resource.id, ville: params[:ville], pays: params[:pays], lat_lon: params[:lat_lon])
-      UserMailer.confirmation_email(resource).deliver_now
+      # UserMailer.confirmation_email(resource).deliver_now
       render json: {
         code: 200,
         message: 'signed up successfully',

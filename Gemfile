@@ -14,6 +14,7 @@ gem 'active_model_serializers'
 gem 'devise-jwt'
 gem 'rack-cors'
 gem 'dotenv-rails'
+gem 'twilio-ruby'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
