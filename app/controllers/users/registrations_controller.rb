@@ -7,6 +7,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def respond_with(resource, options={})
     if resource.persisted?
+      Coordonne.create(user_id: resource.id, ville: params[:ville], pays: params[:pays], lat_lon: params[:lat_lon])
       UserMailer.confirmation_email(resource).deliver_now
       render json: {
         code: 200,
@@ -20,8 +21,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
       }, status: :unprocessable_entity     
     end
   end 
-
-  def coordonne_params
-    params.require(:coordonne).permit(:user_id, :ville, :pays, :lat_lon)
-  end
 end

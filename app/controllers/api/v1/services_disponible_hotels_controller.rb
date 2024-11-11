@@ -18,7 +18,7 @@ class Api::V1::ServicesDisponibleHotelsController < ApplicationController
     @services_disponible_hotel = ServicesDisponibleHotel.new(services_disponible_hotel_params)
 
     if @services_disponible_hotel.save
-      render json: @services_disponible_hotel, status: :created, location: @services_disponible_hotel
+      render json: @services_disponible_hotel, status: :created
     else
       render json: @services_disponible_hotel.errors, status: :unprocessable_entity
     end

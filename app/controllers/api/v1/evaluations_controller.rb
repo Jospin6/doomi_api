@@ -18,7 +18,7 @@ class Api::V1::EvaluationsController < ApplicationController
     @evaluation = Evaluation.new(evaluation_params)
 
     if @evaluation.save
-      render json: @evaluation, status: :created, location: @evaluation
+      render json: @evaluation, status: :created
     else
       render json: @evaluation.errors, status: :unprocessable_entity
     end

@@ -18,7 +18,7 @@ class Api::V1::RestaurationsController < ApplicationController
     @restauration = Restauration.new(restauration_params)
 
     if @restauration.save
-      render json: @restauration, status: :created, location: @restauration
+      render json: @restauration, status: :created
     else
       render json: @restauration.errors, status: :unprocessable_entity
     end

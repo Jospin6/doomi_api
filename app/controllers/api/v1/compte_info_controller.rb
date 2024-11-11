@@ -21,12 +21,6 @@ class Api::V1::CompteInfoController < ApplicationController
         end
     end
 
-    def user_coordonne
-      @coordonne = Coordonne.find_by("user_id", current_user.id)
-      render json: @coordonne, status: :ok
-    end
-    
-
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_compte_info
