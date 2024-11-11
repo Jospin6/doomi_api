@@ -6,7 +6,6 @@ class CreateCompteInfos < ActiveRecord::Migration[7.0]
       t.datetime :confirmed_at, null: true
       t.string :rccm, null: true, default: ""
       t.string :langue, null: true, default: ""
-      t.string :role, default: "utilisateur"
 
       t.timestamps
     end
