@@ -1,7 +1,8 @@
 class CreatePaiements < ActiveRecord::Migration[7.0]
   def change
     create_table :paiements do |t|
-      t.references :transaction, null: false, foreign_key: true
+      t.string :paiementable_type
+      t.integer :paiementable_id
       t.string :mode
       t.decimal :montant
 

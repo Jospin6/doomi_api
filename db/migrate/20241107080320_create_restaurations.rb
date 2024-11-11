@@ -8,7 +8,6 @@ class CreateRestaurations < ActiveRecord::Migration[7.0]
       t.text :site_web
       t.integer :capacite
       t.text :horaires
-      t.integer :type_services
       t.string :localisation
       t.references :user, null: false, foreign_key: true
 
