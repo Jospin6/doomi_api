@@ -35,6 +35,6 @@ class Api::V1::CompteInfoController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def compte_info_params
-      params.require(:compte_info).permit(:user_id, :confirmation_code)
+      params.require(:compte_info).permit(:user_id, :confirmation_code, :confirmed_at, :rccm, :langue)
     end
 end

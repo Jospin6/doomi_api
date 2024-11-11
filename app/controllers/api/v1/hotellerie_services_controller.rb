@@ -46,6 +46,7 @@ class Api::V1::HotellerieServicesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def hotellerie_service_params
-      params.require(:hotellerie_service).permit(:nom_hotel, :type_hebergement, :adresse, :contacts, :email, :site_web, :nombre_chambres, :capacite_accueil, :tarif_moyen, :horaires, :localisation, :user_id)
+      params.require(:hotellerie_service).permit(:nom_hotel, :type_hebergement, :adresse, :contacts, :email, :site_web, :nombre_chambres, :capacite_accueil, :tarif_moyen, :devise, :horaires, :localisation, :user_id)
     end
+
 end

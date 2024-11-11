@@ -67,6 +67,6 @@ class Api::V1::VitrinesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def vitrine_params
-      params.require(:vitrine).permit(:titre, :description, :profil_img, :cover_img, :specialites, :horaires)
+      params.require(:vitrine).permit(:titre, :description, :profil_img, :cover_img, :specialites, :horaires, :user_id)
     end
 end

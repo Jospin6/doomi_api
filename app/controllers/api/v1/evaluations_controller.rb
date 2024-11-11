@@ -46,6 +46,6 @@ class Api::V1::EvaluationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def evaluation_params
-      params.require(:evaluation).permit(:evaluationable_type, :evaluationable_id, :evaluation)
+      params.require(:evaluation).permit(:evaluationable_type, :evaluationable_id, :user_id, :evaluation)
     end
 end

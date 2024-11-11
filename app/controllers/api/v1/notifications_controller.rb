@@ -52,6 +52,6 @@ class Api::V1::NotificationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def notification_params
-      params.require(:notification).permit(:user_id, :type, :message, :is_read, :produit_id)
+      params.require(:notification).permit(:user_id, :titre, :type, :message, :is_read, :date_expiration, :priorite, :notificationable_type, :notificationable_id)
     end
 end

@@ -2,7 +2,7 @@ class CreateRestaurations < ActiveRecord::Migration[7.0]
   def change
     create_table :restaurations do |t|
       t.string :nom
-      t.integer :type_cuisine
+      t.text :type_cuisine, null: true
       t.text :adresse
       t.text :contacts
       t.text :site_web

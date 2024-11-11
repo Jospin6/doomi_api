@@ -20,4 +20,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       }, status: :unprocessable_entity     
     end
   end 
+
+  def coordonne_params
+    params.require(:coordonne).permit(:user_id, :ville, :pays, :lat_lon)
+  end
 end

@@ -88,27 +88,34 @@ class Api::V1::ProduitsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def produit_params
-      params.require(:produit).permit(:titre, :prix, :description, :sub_categorie_produit_id, :user_id, images: [])
+      params.require(:produit).permit(:titre, :prix, :description, :devise, :is_visible, :localisation, :sub_categorie_produit_id, :user_id)
     end
 
     def vehicule_params
-      params.require(:vehicule).permit(:produit, :modele, :annee, :kilometrage, :type_vehicule, :couleur, :carburant, :transmission, :nombre_portes, :nombre_places, :statut, :plan_de_paiement, :disponibilite)
+      params.require(:vehicule).permit(:produit_id, :modele, :annee, :kilometrage, :type_vehicule, :couleur, :carburant, :transmission, :nombre_portes, :nombre_places, :statut, :plan_de_paiement, :disponibilite)
     end
 
     def immobilier_params
-      params.require(:immobilier).permit(:produit, :type_de_bien, :adresse, :surface_habitable, :nombre_chambres, :nombre_pieces)
+      params.require(:immobilier).permit(:produit_id, :type_de_bien, :adresse, :surface_habitable, :nombre_chambres, :nombre_pieces)
     end
 
     def evenement_params
-      params.require(:evenement).permit(:produit, :date_evenement, :lieu, :type_prix, :etat_evenement)
+      params.require(:evenement).permit(:produit_id, :date_evenement, :lieu, :type_prix, :site_web, :etat_evenement)
     end
 
     def emploi_params
-      params.require(:emploi).permit(:produit, :type_contrat, :lieu, :secteur_activite, :niveau_experience, :date_limite, :salaire, :site_web, :formation_requise, :etat_offre)
+      params.require(:emploi).permit(:produit_id, :type_contrat, :lieu, :secteur_activite, :niveau_experience, :date_limite, :site_web, :formation_requise, :etat_offre)
     end
 
-    def autreProduitAttribut_params
-      params.require(:autreProduitAttribut).permit(:produit, :etat, :marque)
+    def autreProduit_attribut_params
+      params.require(:autre_produit_attribut).permit(:produit_id, :etat, :marque)
     end
-    
+
+    def vetement_chaussure_params
+      params.require(:vetement_chaussure).permit(:produit_id, :type, :taille, :matiere)
+    end
+
+    def service_params
+      params.require(:service).permit(:produit_id, :statut)
+    end
 end

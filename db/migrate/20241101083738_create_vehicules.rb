@@ -7,7 +7,7 @@ class CreateVehicules < ActiveRecord::Migration[7.0]
       t.string :kilometrage
       t.integer :type_vehicule
       t.string :couleur
-      t.integer :carburant
+      t.string :carburant
       t.string :transmission
       t.integer :nombre_portes
       t.integer :nombre_places

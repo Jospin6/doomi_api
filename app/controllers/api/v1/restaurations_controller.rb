@@ -46,6 +46,6 @@ class Api::V1::RestaurationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def restauration_params
-      params.require(:restauration).permit(:nom, :type_cuisine, :adresse, :contacts, :site_web, :capacite, :horaires, :type_services, :localisation, :user_id)
+      params.require(:restauration).permit(:nom, :type_cuisine, :adresse, :contacts, :site_web, :capacite, :horaires, :localisation, :user_id)
     end
 end
