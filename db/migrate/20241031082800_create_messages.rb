@@ -5,7 +5,7 @@ class CreateMessages < ActiveRecord::Migration[7.0]
       t.integer :sender
       t.text :body, null: true
       t.string :audio_file, null: true
-      t.boolean :is_read
+      t.boolean :is_read, default: false
 
       t.timestamps
     end
