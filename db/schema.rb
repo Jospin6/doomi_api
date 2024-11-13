@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_13_092849) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_13_101906) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -146,9 +146,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_13_092849) do
 
   create_table "followers", force: :cascade do |t|
     t.bigint "vitrine_id", null: false
-    t.integer "follower"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_followers_on_user_id"
     t.index ["vitrine_id"], name: "index_followers_on_vitrine_id"
   end
 
@@ -340,12 +341,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_13_092849) do
 
   create_table "transactions", force: :cascade do |t|
     t.bigint "produit_id", null: false
-    t.integer "acheteur"
     t.integer "notes", default: 0
     t.string "status", default: "en cours"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.index ["produit_id"], name: "index_transactions_on_produit_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -426,6 +428,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_13_092849) do
   add_foreign_key "evenements", "produits"
   add_foreign_key "favorie_produits", "produits"
   add_foreign_key "favorie_produits", "users"
+  add_foreign_key "followers", "users"
   add_foreign_key "followers", "vitrines"
   add_foreign_key "hotellerie_services", "users"
   add_foreign_key "immobiliers", "produits"
@@ -444,6 +447,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_13_092849) do
   add_foreign_key "services_disponible_hotels", "hotellerie_services"
   add_foreign_key "sub_categorie_produits", "categorie_produits"
   add_foreign_key "transactions", "produits"
+  add_foreign_key "transactions", "users"
   add_foreign_key "vehicules", "produits"
   add_foreign_key "vetement_chaussures", "produits"
   add_foreign_key "vitrines", "users"

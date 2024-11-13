@@ -52,6 +52,6 @@ class Api::V1::FollowersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def follower_params
-      params.require(:follower).permit(:vitrine_id, :follower)
+      params.require(:follower).permit(:vitrine_id, :user_id)
     end
 end
