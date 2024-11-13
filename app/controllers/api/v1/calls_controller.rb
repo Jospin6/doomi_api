@@ -55,6 +55,6 @@ class Api::V1::CallsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def call_params
-      params.require(:call).permit(:conversation_id, :caller, :receiver, :call_type, :start_time, :end_time, :status)
+      params.require(:call).permit(:conversation_id, :user1_id, :user2_id, :call_type, :start_time, :end_time, :status)
     end
 end

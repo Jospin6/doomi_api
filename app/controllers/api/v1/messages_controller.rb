@@ -52,6 +52,6 @@ class Api::V1::MessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def message_params
-      params.require(:message).permit(:conversation_id, :sender, :body, :audio_file, :is_read)
+      params.require(:message).permit(:conversation_id, :body, :audio_file, :is_read,:user_id)
     end
 end

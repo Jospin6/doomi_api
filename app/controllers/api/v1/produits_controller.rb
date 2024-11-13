@@ -34,24 +34,19 @@ class Api::V1::ProduitsController < ApplicationController
   def create
     @produit = Produit.new(produit_params)
 
+    if params[:vehicule]
+      @produit.build_vehicule(vehicule_params)
+    elsif params[:immobilier]
+      @produit.build_immobilier(immobilier_params)
+    elsif params[:evenement]
+      @produit.build_evenement(evenement_params)
+    elsif params[:emploi]
+      @produit.build_emploi(emploi_params)    
+    else
+      @produit.build_autreProduitAttribut(autreProduit_attribut_params)
+    end
+
     if @produit.save
-      
-      @produit.images.each do |image|
-        @produit.images.create(image: image)
-      end
-      
-      if params[:vehicule] || params[:autreProduitAttribut]
-        @produit.build_vehicule(vehicule_params)
-        @produit.build_autreProduitAttribut(autreProduitAttribut_params)
-      elsif params[:immobilier]
-        @produit.build_immobilier(immobilier_params)
-      elsif params[:evenement]
-        @produit.build_evenement(evenement_params)
-      elsif params[:emploi]
-        @produit.build_emploi(emploi_params)    
-      else
-        @produit.build_autreProduitAttribut(autreProduitAttribut_params)
-      end
       render json: @produit, status: :created
     else
       render json: @produit.errors, status: :unprocessable_entity
@@ -92,30 +87,30 @@ class Api::V1::ProduitsController < ApplicationController
     end
 
     def vehicule_params
-      params.require(:vehicule).permit(:produit_id, :modele, :annee, :kilometrage, :type_vehicule, :couleur, :carburant, :transmission, :nombre_portes, :nombre_places, :statut, :plan_de_paiement, :disponibilite)
+      params.require(:vehicule).permit(:modele, :annee, :kilometrage, :type_vehicule, :couleur, :carburant, :transmission, :nombre_portes, :nombre_places, :statut, :plan_de_paiement, :disponibilite)
     end
 
     def immobilier_params
-      params.require(:immobilier).permit(:produit_id, :type_de_bien, :adresse, :surface_habitable, :nombre_chambres, :nombre_pieces)
+      params.require(:immobilier).permit(:type_de_bien, :adresse, :surface_habitable, :nombre_chambres, :nombre_pieces)
     end
 
     def evenement_params
-      params.require(:evenement).permit(:produit_id, :date_evenement, :lieu, :type_prix, :site_web, :etat_evenement)
+      params.require(:evenement).permit(:date_evenement, :lieu, :type_prix, :site_web, :etat_evenement)
     end
 
     def emploi_params
-      params.require(:emploi).permit(:produit_id, :type_contrat, :lieu, :secteur_activite, :niveau_experience, :date_limite, :site_web, :formation_requise, :etat_offre)
+      params.require(:emploi).permit(:type_contrat, :lieu, :secteur_activite, :niveau_experience, :date_limite, :site_web, :formation_requise, :etat_offre)
     end
 
     def autreProduit_attribut_params
-      params.require(:autre_produit_attribut).permit(:produit_id, :etat, :marque)
+      params.require(:autre_produit_attribut).permit(:etat, :marque)
     end
 
     def vetement_chaussure_params
-      params.require(:vetement_chaussure).permit(:produit_id, :type, :taille, :matiere)
+      params.require(:vetement_chaussure).permit(:type, :taille, :matiere)
     end
 
     def service_params
-      params.require(:service).permit(:produit_id, :statut)
+      params.require(:service).permit(:statut)
     end
 end

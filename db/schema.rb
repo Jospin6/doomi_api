@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_07_111827) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_13_092849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,14 +51,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_07_111827) do
 
   create_table "calls", force: :cascade do |t|
     t.bigint "conversation_id", null: false
-    t.integer "caller"
-    t.integer "receiver"
     t.string "call_type"
     t.datetime "start_time"
     t.datetime "end_time"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user1_id"
+    t.integer "user2_id"
     t.index ["conversation_id"], name: "index_calls_on_conversation_id"
   end
 
@@ -205,13 +205,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_07_111827) do
 
   create_table "messages", force: :cascade do |t|
     t.bigint "conversation_id", null: false
-    t.integer "sender"
     t.text "body"
     t.string "audio_file"
     t.boolean "is_read", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -430,6 +431,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_07_111827) do
   add_foreign_key "immobiliers", "produits"
   add_foreign_key "menus", "restaurations"
   add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "produits", "sub_categorie_produits"
   add_foreign_key "produits", "users"
