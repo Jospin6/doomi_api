@@ -41,7 +41,9 @@ class Api::V1::ProduitsController < ApplicationController
     elsif params[:evenement]
       @produit.build_evenement(evenement_params)
     elsif params[:emploi]
-      @produit.build_emploi(emploi_params)    
+      @produit.build_emploi(emploi_params) 
+    elsif params[:service]
+      @produit.build_service(service_params)    
     else
       @produit.build_autreProduitAttribut(autreProduit_attribut_params)
     end

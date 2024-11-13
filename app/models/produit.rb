@@ -16,5 +16,6 @@ class Produit < ApplicationRecord
   has_one :evenement
   has_one :emploi
   has_one :autreProduitAttribut
+  has_one :service
   
 end

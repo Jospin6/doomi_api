@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       end 
       resources :hotellerie_services
       resources :menus
+      resources :projets
       resources :restaurations
       resources :reservations
       resources :recherche_produits
