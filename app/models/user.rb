@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
+  attr_accessor :login
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -24,13 +25,9 @@ class User < ApplicationRecord
   has_many :user2_id, class_name: "Conversation", foreign_key: "user2_id"
   has_many :favoie_produits
 
-
   has_one :compte_info
   has_one :vitrine
   has_one :coordonne
-
-  
-
 
   def jwt_payload
     super
@@ -52,6 +49,18 @@ class User < ApplicationRecord
       body: "Merci de vous être inscrit sur Doomi, #{self.username}! Voici le code ce confirmation de votre compte #{confirmation_code}"
     )
     puts "Message sent: #{message.sid}"
+  end
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+
+    conditions = warden_conditions.dup
+
+    if login = conditions.delete(:login)
+      where(conditions.to_hash).where("lower(phone_number) = :value OR lower(email) = :value",
+         value: login.downcase).first
+    else
+      where(conditions.to_hash).first
+    end
   end
 
   private
