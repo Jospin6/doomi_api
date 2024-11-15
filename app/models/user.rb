@@ -62,7 +62,7 @@ class User < ApplicationRecord
   end
 
   def generate_confirmation_code
-    SecureRandom.random_number(1000000).to_s.rjust(6, '0')
+    SecureRandom.random_number(100000).to_s.rjust(5, '0')
   end
   
 end

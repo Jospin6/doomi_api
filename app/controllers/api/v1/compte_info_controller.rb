@@ -1,7 +1,7 @@
 class Api::V1::CompteInfoController < ApplicationController
 
     def confirm_code
-        @user = User.find_by(email: params[:email])
+        @user = User.find(params[:user_id])
         if @user && @user.compte_info.confirmation_code == params[:confirmation_code]
           @user.compte_info.update(confirmed_at: Time.current) 
           render json: { message: 'Votre compte a été confirmé!' }, status: :ok
@@ -11,7 +11,7 @@ class Api::V1::CompteInfoController < ApplicationController
     end
     
     def resend_confirmation_code
-        @user = User.find_by(email: params[:email])
+        @user = User.find_by(params[:user_id])
         if @user
             @user.update_confirmation_code
             @user.send_confirmation_sms
