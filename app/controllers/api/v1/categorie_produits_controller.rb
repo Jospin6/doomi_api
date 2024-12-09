@@ -13,12 +13,12 @@ class Api::V1::CategorieProduitsController < ApplicationController
     render json: @categorie_produit
   end
 
-  def all_categories_produits
+  def categories_produits
     @produits = CategorieProduit.includes(sub_categorie_produits: :produits).all
     render json: @produits, status: :ok
   end
 
-  def all_category_produits
+  def category_produits
     @produits = CategorieProduit.includes(sub_categorie_produits: :produits).find(params[:id])
     render json: @produits, status: :ok
   end

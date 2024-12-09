@@ -74,8 +74,8 @@ Rails.application.routes.draw do
       resources :sub_categorie_produits
       resources :categorie_produits do
         collection do 
-          get :all_categories_produits
-          get :all_category_produits
+          get :categories_produits
+          get :category_produits
         end
       end
     end
