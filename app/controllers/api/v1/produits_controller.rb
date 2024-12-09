@@ -20,13 +20,18 @@ class Api::V1::ProduitsController < ApplicationController
 
   def user_produits
 
-    @produits = Produit.includes(:vetementChaussure, 
-      :vehicule, 
-      :immobilier, 
-      :evenement, 
-      :emploi, 
-      :autreProduitAttribut).where("user_id =", current_user.id)
-    
+    @produits = CategorieProduit.includes(
+    sub_categorie_produits: {
+        produits: [:vetementChaussure, 
+                   :vehicule, 
+                   :immobilier, 
+                   :evenement, 
+                   :emploi, 
+                   :autreProduitAttribut]
+    }
+    ).where(sub_categorie_produits: { produits: { user_id: current_user.id } })
+
+    render json: @produits
   end
   
 
