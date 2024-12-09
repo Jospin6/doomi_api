@@ -72,12 +72,7 @@ Rails.application.routes.draw do
         end
       end
       resources :sub_categorie_produits
-      resources :categorie_produits do
-        collection do 
-          get :categories_produits
-          get :category_produits
-        end
-      end
+      resources :categorie_produits
     end
   end
 end
