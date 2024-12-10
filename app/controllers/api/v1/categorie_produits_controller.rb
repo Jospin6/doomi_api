@@ -3,7 +3,14 @@ class Api::V1::CategorieProduitsController < ApplicationController
 
   # GET /categorie_produits
   def index
-    @categorie_produits = CategorieProduit.includes(sub_categorie_produits: :produits).all
+    @categorie_produits = CategorieProduit.includes(sub_categorie_produits: {
+      produits: [:vetementChaussure, 
+                 :vehicule, 
+                 :immobilier, 
+                 :evenement, 
+                 :emploi, 
+                 :autreProduitAttribut]
+  }).all
 
     render json: @categorie_produits
   end
@@ -41,7 +48,14 @@ class Api::V1::CategorieProduitsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_categorie_produit
-      @categorie_produit = CategorieProduit.includes(sub_categorie_produits: :produits).find(params[:id])
+      @categorie_produit = CategorieProduit.includes(sub_categorie_produits: {
+        produits: [:vetementChaussure, 
+                   :vehicule, 
+                   :immobilier, 
+                   :evenement, 
+                   :emploi, 
+                   :autreProduitAttribut]
+    }).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
