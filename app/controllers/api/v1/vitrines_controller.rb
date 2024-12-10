@@ -17,7 +17,6 @@ class Api::V1::VitrinesController < ApplicationController
     @vitrine = Vitrine.includes(:follewers)
                    .where(user_id: current_user.id)
                    .first
-
     @followers_count = vitrine.follewers.count if @vitrine
 
     render json: {

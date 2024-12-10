@@ -18,6 +18,21 @@ class Api::V1::ProduitsController < ApplicationController
     render json: @produit
   end
 
+  def search_products
+    search_term = params[:title]
+
+    @produits = Produit.includes(:vetementChaussure, 
+                                  :vehicule, 
+                                  :immobilier, 
+                                  :evenement, 
+                                  :emploi, 
+                                  :autreProduitAttribut)
+                       .where("titre ILIKE ?", "%#{search_term}%")
+  
+    render json: @produits 
+  end
+  
+
   def user_produits
 
     @produits = CategorieProduit.includes(
@@ -85,7 +100,15 @@ class Api::V1::ProduitsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_produit
-      @produit = Produit.find(params[:id])
+      @produit = Produit.includes(
+        :vetementChaussure, 
+        :vehicule, 
+        :immobilier, 
+        :evenement, 
+        :emploi, 
+        :autreProduitAttribut,
+        sub_categorie_produits: :categorie_produit
+      ).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
