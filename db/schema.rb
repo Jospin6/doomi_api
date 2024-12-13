@@ -192,18 +192,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_13_101906) do
     t.index ["produit_id"], name: "index_immobiliers_on_produit_id"
   end
 
-  create_table "menus", force: :cascade do |t|
-    t.bigint "restauration_id", null: false
-    t.string "nom_plat"
-    t.text "description"
-    t.decimal "prix"
-    t.integer "categorie_plat"
-    t.text "ingredient"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["restauration_id"], name: "index_menus_on_restauration_id"
-  end
-
   create_table "messages", force: :cascade do |t|
     t.bigint "conversation_id", null: false
     t.text "body"
@@ -296,21 +284,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_13_101906) do
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
-  create_table "restaurations", force: :cascade do |t|
-    t.string "nom"
-    t.text "type_cuisine"
-    t.text "adresse"
-    t.text "contacts"
-    t.text "site_web"
-    t.integer "capacite"
-    t.text "horaires"
-    t.string "localisation"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_restaurations_on_user_id"
-  end
-
   create_table "services", force: :cascade do |t|
     t.bigint "produit_id", null: false
     t.string "statut"
@@ -352,7 +325,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_13_101906) do
 
   create_table "users", force: :cascade do |t|
     t.string "username", default: "", null: false
-    t.string "email", default: ""
+    t.string "email", default: "email@gmail.com"
     t.string "phone_number", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -363,13 +336,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_13_101906) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.string "type_account"
     t.string "role", default: "utilisateur"
     t.boolean "is_active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "jti", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -432,7 +403,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_13_101906) do
   add_foreign_key "followers", "vitrines"
   add_foreign_key "hotellerie_services", "users"
   add_foreign_key "immobiliers", "produits"
-  add_foreign_key "menus", "restaurations"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
   add_foreign_key "notifications", "users"
@@ -442,7 +412,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_13_101906) do
   add_foreign_key "recherche_produits", "users"
   add_foreign_key "recommandations", "users"
   add_foreign_key "reservations", "users"
-  add_foreign_key "restaurations", "users"
   add_foreign_key "services", "produits"
   add_foreign_key "services_disponible_hotels", "hotellerie_services"
   add_foreign_key "sub_categorie_produits", "categorie_produits"

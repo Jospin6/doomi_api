@@ -5,7 +5,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
     create_table :users do |t|
       ## Database authenticatable
       t.string :username,           null: false, default: ""
-      t.string :email,              null: true, default: ""
+      t.string :email,              null: true, default: "email@gmail.com"
       t.string :phone_number,       null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
@@ -23,13 +23,11 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
 
-      t.string :type_account
       t.string :role, default: "utilisateur"
       t.boolean :is_active, default: true
       t.timestamps null: false
     end
 
-    add_index :users, :email,                unique: true
     add_index :users, :phone_number,         unique: true
     add_index :users, :reset_password_token, unique: true
   end

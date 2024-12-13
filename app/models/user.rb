@@ -11,10 +11,8 @@ class User < ApplicationRecord
   validates :username, 
     presence: true,
     format: { with: /\A[a-zA-Z0-9 _\.]*\z/ }
-  
-  validates :type_account, presence: true
 
-  after_create :create_compte_info
+  # after_create :create_compte_info
 
   has_many :outgoing_calls, class_name: "Call", foreign_key: "caller"
   has_many :incoming_calls, class_name: "Call", foreign_key: "receiver"
