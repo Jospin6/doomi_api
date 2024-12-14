@@ -7,8 +7,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def respond_with(resource, options={})
   if resource.persisted?
-    # Créez le token ici, par exemple avec JWT
-    token = generate_token(resource) 
+    
+    token = current_token(resource) 
     
     Coordonne.create(user_id: resource.id, ville: params[:ville], pays: params[:pays], lat_lon: params[:lat_lon])
     
@@ -27,8 +27,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
   end
 
-  def generate_token(user)
-    payload = { user_id: user.id }
-    JWT.encode(payload, Rails.application.secrets.secret_key_base)
+  def current_token(resource)
+    Warden::JWTAuth::UserEncoder.new.call(resource, :user, nil).first
   end
 end

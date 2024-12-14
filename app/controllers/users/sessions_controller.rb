@@ -6,11 +6,13 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def respond_with(resource, options={})
-    if resource.is_active && resource.compte_info.confirmed?
+    if resource.is_active
+      token = current_token(resource) 
       render json: {
         code: 200,
         message: "User signed in successfully",
-        data: current_user
+        data: current_user,
+        token: token
       }, status: :ok
     else
       render json: {
@@ -35,5 +37,9 @@ class Users::SessionsController < Devise::SessionsController
         message: "User has no active session"
       }, status: :unauthorized
     end
+  end
+
+  def current_token(resource)
+    Warden::JWTAuth::UserEncoder.new.call(resource, :user, nil).first
   end
 end
