@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'confirm_code', to: 'compte_info#confirm_code'
       post 'resend_confirmation_code', to: 'compte_info#resend_confirmation_code'
+      get 'current_user', to: 'users#show'
       resources :services_disponible_hotels
       resources :evaluations
       resources :coordonnes do

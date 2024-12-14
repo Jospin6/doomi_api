@@ -308,6 +308,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   kredis
+  mini_magick
   pg (~> 1.5, >= 1.5.4)
   puma (~> 5.0)
   rack-cors

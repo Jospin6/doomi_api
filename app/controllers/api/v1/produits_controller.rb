@@ -54,6 +54,10 @@ class Api::V1::ProduitsController < ApplicationController
   def create
     @produit = Produit.new(produit_params)
 
+    params[:produit][:images].each do |image|
+      @produit.images.create(image: image)
+    end
+    
     if params[:vehicule]
       @produit.build_vehicule(vehicule_params)
     elsif params[:immobilier]
