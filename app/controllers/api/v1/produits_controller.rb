@@ -54,25 +54,29 @@ class Api::V1::ProduitsController < ApplicationController
   def create
     @produit = Produit.new(produit_params)
 
-    params[:produit][:images].each do |image|
-      @produit.images.create(image: image)
-    end
-    
-    if params[:vehicule]
-      @produit.build_vehicule(vehicule_params)
-    elsif params[:immobilier]
-      @produit.build_immobilier(immobilier_params)
-    elsif params[:evenement]
-      @produit.build_evenement(evenement_params)
-    elsif params[:emploi]
-      @produit.build_emploi(emploi_params) 
-    elsif params[:service]
-      @produit.build_service(service_params)    
-    else
-      @produit.build_autreProduitAttribut(autreProduit_attribut_params)
-    end
 
     if @produit.save
+
+      if params[:produit][:images].present?
+        params[:produit][:images].each do |image|
+          @produit.images.create(image: image) 
+        end
+      end
+      
+      if params[:vehicule]
+        @produit.build_vehicule(vehicule_params)
+      elsif params[:immobilier]
+        @produit.build_immobilier(immobilier_params)
+      elsif params[:evenement]
+        @produit.build_evenement(evenement_params)
+      elsif params[:emploi]
+        @produit.build_emploi(emploi_params) 
+      elsif params[:service]
+        @produit.build_service(service_params)    
+      else
+        @produit.build_autreProduitAttribut(autreProduit_attribut_params)
+      end
+
       render json: @produit, status: :created
     else
       render json: @produit.errors, status: :unprocessable_entity
@@ -117,7 +121,7 @@ class Api::V1::ProduitsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def produit_params
-      params.require(:produit).permit(:titre, :prix, :description, :devise, :is_visible, :localisation, :sub_categorie_produit_id, :user_id)
+      params.require(:produit).permit(:user_id, :titre, :prix, :devise, :description, :localisation, :sub_categorie_produit_id, images: [])
     end
 
     def vehicule_params
