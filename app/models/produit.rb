@@ -8,10 +8,8 @@ class Produit < ApplicationRecord
   has_many :boosts, as: :boostable
   has_many :a_la_unes, as: :a_la_uneable
   has_many :notifications, as: :notificationable
-
   has_many :images, as: :imageable, dependent: :destroy
-  accepts_nested_attributes_for :images, allow_destroy: true
-  
+
   has_one :vetementChaussure
   has_one :vehicule
   has_one :immobilier
@@ -19,5 +17,16 @@ class Produit < ApplicationRecord
   has_one :emploi
   has_one :autreProduitAttribut
   has_one :service
+
+  accepts_nested_attributes_for :immobilier, 
+    :images, 
+    :vetementChaussure, 
+    :vehicule, 
+    :evenement, 
+    :emploi, 
+    :autreProduitAttribut, 
+    :service
+  
+  
   
 end
