@@ -72,12 +72,13 @@ class Api::V1::ProduitsController < ApplicationController
     end
     
     if @produit.save
-      # attach_images if params[:images].present?
+
       if params[:images].present?
         params[:images].each do |image|
           @produit.images.create(image: image)
         end
       end
+
       render json: { message: 'Produit créé avec succès', produit: @produit }, status: :created
     else
       render json: { errors: @produit.errors.full_messages }, status: :unprocessable_entity
@@ -183,11 +184,5 @@ class Api::V1::ProduitsController < ApplicationController
       service_data = JSON.parse(params[:service])
       permitted_params = ActionController::Parameters.new(service_data)
       permitted_params.permit(:statut)
-    end
-
-    def attach_images
-      params[:images].each do |image|
-        @produit.images.create(image: image) if image.present?
-      end
     end
 end
