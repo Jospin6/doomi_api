@@ -131,7 +131,7 @@ class Api::V1::ProduitsController < ApplicationController
         immobilier_attributes: [:type_de_bien, :adresse, :produit_id, :surface_habitable, :nombre_chambres, :nombre_pieces],
         evenement_attributes: [:date_evenement, :lieu, :type_prix, :site_web, :etat_evenement],
         emploi_attributes: [:type_contrat, :lieu, :secteur_activite, :niveau_experience, :date_limite, :site_web, :formation_requise, :etat_offre],
-        vetement_chaussure_attributes: [:type, :taille, :matiere],
+        vetement_chaussure_attributes: [:type_vetement, :taille, :matiere],
         autre_produit_attribut_attributes: [:etat, :marque],
         service_attributes: [:statut],
         images_attributes: [:image]
@@ -165,7 +165,7 @@ class Api::V1::ProduitsController < ApplicationController
     def vetement_chaussure_params
       vetement_chaussure_data = JSON.parse(params[:vetement_chaussure])
       permitted_params = ActionController::Parameters.new(vetement_chaussure_data)
-      permitted_params.permit(:type, :taille, :matiere)
+      permitted_params.permit(:type_vetement, :taille, :matiere)
     end
 
     def autre_produit_attribut_params
