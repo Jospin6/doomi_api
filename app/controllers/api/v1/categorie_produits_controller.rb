@@ -4,12 +4,12 @@ class Api::V1::CategorieProduitsController < ApplicationController
   # GET /categorie_produits
   def index
     @categorie_produits = CategorieProduit.includes(sub_categorie_produits: {
-      produits: [:vetementChaussure, 
+      produits: [:vetement_chaussure, 
                  :vehicule, 
                  :immobilier, 
                  :evenement, 
                  :emploi, 
-                 :autreProduitAttribut]
+                 :autre_produit_attribut]
   }).all
 
     render json: @categorie_produits

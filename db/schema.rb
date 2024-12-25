@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_14_081428) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_25_031443) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -395,7 +395,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_14_081428) do
 
   create_table "vetement_chaussures", force: :cascade do |t|
     t.bigint "produit_id", null: false
-    t.integer "type"
+    t.integer "type_vetement"
     t.integer "taille"
     t.integer "matiere"
     t.datetime "created_at", null: false
