@@ -11,7 +11,9 @@ class Api::V1::CategorieProduitsController < ApplicationController
         evenement: {}, 
         emploi: {}, 
         autre_produit_attribut: {},
-        images: []
+        service: {},
+        images: [],
+        user: {}
       }
   }).all
 
@@ -27,7 +29,7 @@ class Api::V1::CategorieProduitsController < ApplicationController
             },
             vetement_chaussure: {
               only: [
-                :type, 
+                :type_vetement, 
                 :taille, 
                 :matiere]
             },
@@ -57,7 +59,8 @@ class Api::V1::CategorieProduitsController < ApplicationController
             evenement: {
               only: [
                 :date_evenement, 
-                :lieu, :type_prix, 
+                :lieu, 
+                :type_prix, 
                 :site_web, 
                 :etat_evenement]
             },
@@ -77,6 +80,12 @@ class Api::V1::CategorieProduitsController < ApplicationController
                 :etat, 
                 :marque]
             },
+            service: {
+              only: [:statut]
+            },
+            user: {
+              only: [:id, :username]
+            },
             method: [:image_urls]
           }
         }
@@ -86,7 +95,80 @@ class Api::V1::CategorieProduitsController < ApplicationController
 
   # GET /categorie_produits/1
   def show
-    render json: @categorie_produit
+    render json: @categorie_produit.as_json(include: {
+      sub_categorie_produits: {
+        include: {
+          produits: {
+            images: {
+              only: [
+                :id, 
+                :imageable_type, 
+                :imageable_id]
+            },
+            vetement_chaussure: {
+              only: [
+                :type_vetement, 
+                :taille, 
+                :matiere]
+            },
+            vehicule: {
+              only: [
+                :modele, 
+                :annee, 
+                :kilometrage, 
+                :type_vehicule, 
+                :couleur, 
+                :carburant, 
+                :transmission, 
+                :nombre_portes, 
+                :nombre_places, 
+                :statut, 
+                :plan_de_paiement, 
+                :disponibilite]
+            },
+            immobilier: {
+              only: [
+                :type_de_bien, 
+                :adresse, 
+                :surface_habitable, 
+                :nombre_chambres, 
+                :nombre_pieces]
+            },
+            evenement: {
+              only: [
+                :date_evenement, 
+                :lieu, 
+                :type_prix, 
+                :site_web, 
+                :etat_evenement]
+            },
+            emploi: {
+              only: [
+                :type_contrat, 
+                :lieu, 
+                :secteur_activite, 
+                :niveau_experience, 
+                :date_limite, 
+                :site_web, 
+                :formation_requise, 
+                :etat_offre]
+            },
+            autre_produit_attribut: {
+              only: [
+                :etat, 
+                :marque]
+            },
+            service: {
+              only: [:statut]
+            },
+            user: {
+              only: [:id, :username]
+            },
+            method: [:image_urls]
+          }
+        }
+      }
+    })
   end
 
   # POST /categorie_produits
@@ -118,12 +200,17 @@ class Api::V1::CategorieProduitsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_categorie_produit
       @categorie_produit = CategorieProduit.includes(sub_categorie_produits: {
-        produits: [:vetementChaussure, 
-                   :vehicule, 
-                   :immobilier, 
-                   :evenement, 
-                   :emploi, 
-                   :autreProduitAttribut]
+        produits: {
+          vetement_chaussure: {}, 
+          vehicule: {}, 
+          immobilier: {}, 
+          evenement: {}, 
+          emploi: {}, 
+          autre_produit_attribut: {},
+          service: {},
+          images: [],
+          user: {}
+        }
     }).find(params[:id])
     end
 
