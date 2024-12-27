@@ -14,7 +14,7 @@ class Api::V1::VitrinesController < ApplicationController
   end
 
   def user_vitrine
-    @vitrine = Vitrine.includes(:follewers)
+    @vitrine = Vitrine.includes(:follewers, :user)
                    .where(user_id: current_user.id)
                    .first
     @followers_count = vitrine.follewers.count if @vitrine
