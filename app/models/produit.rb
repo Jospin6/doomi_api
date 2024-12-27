@@ -28,6 +28,10 @@ class Produit < ApplicationRecord
     :autre_produit_attribut, 
     :service
   
+  def image_urls
+    images.map { |image| image.service_url } if images.attached?
+  end
+  
   
   
 end
